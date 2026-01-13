@@ -1,0 +1,2 @@
+com.venn.lfs.impl.autoconfig.LoadFundServiceConfiguration
+com.venn.lfs.impl.autoconfig.FlywayConfiguration
