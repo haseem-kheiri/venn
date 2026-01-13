@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.venn.common.utils.Check;
 import java.time.OffsetDateTime;
 import java.util.regex.Pattern;
+import lombok.Getter;
 
 /** Request DTO for a load-fund operation. */
+@Getter
 public class LoadFundRequestDto {
 
   private static final Pattern AMOUNT_PATTERN = Pattern.compile("^\\$[0-9]{0,4}\\.[0-9]{0,2}$");
@@ -37,25 +39,5 @@ public class LoadFundRequestDto {
     Check.requireTrue(AMOUNT_PATTERN.matcher(loadAmount).matches(), "invalid load amount.");
     this.loadAmount = Double.valueOf(loadAmount.substring(1));
     this.time = OffsetDateTime.parse(time);
-  }
-
-  /** return the request identifier. */
-  public String getId() {
-    return id;
-  }
-
-  /** return the customer identifier. */
-  public String getCustomerId() {
-    return customerId;
-  }
-
-  /** return the load amount. */
-  public Double getLoadAmount() {
-    return loadAmount;
-  }
-
-  /** return the event timestamp. */
-  public OffsetDateTime getTime() {
-    return time;
   }
 }

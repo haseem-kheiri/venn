@@ -2,8 +2,12 @@ package com.venn.lfs.dto.impl;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /** Response DTO for a load-fund request. */
+@EqualsAndHashCode
+@Getter
 public class LoadFundResponseDto {
 
   private final String id;
@@ -25,20 +29,5 @@ public class LoadFundResponseDto {
     this.id = id;
     this.customerId = customerId;
     this.accepted = accepted;
-  }
-
-  /** return the request identifier. */
-  public String getId() {
-    return id;
-  }
-
-  /** return the customer identifier. */
-  public String getCustomerId() {
-    return customerId;
-  }
-
-  /** return whether the load was accepted. */
-  public boolean isAccepted() {
-    return accepted;
   }
 }

@@ -78,6 +78,7 @@ class LoadFundServiceTest {
       final LoadFundResponseDto expected = responseDtos.get(index);
       final LoadFundRequestDto request = requestDtos.get(index);
       final LoadFundResponseDto actual = service.loadFund(request);
+
       Assertions.assertEquals(expected, actual);
     }
   }
