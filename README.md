@@ -1,4 +1,4 @@
-##Prerequisites
+## Prerequisites
 
 Docker must be available on the build and runtime host.
 Tests use Testcontainers with PostgreSQL.
