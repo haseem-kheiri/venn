@@ -28,3 +28,11 @@ load-fund-service contains all domain logic, including:
 
 All tests are located in the load-fund-service module.
 Database migration script are pushed using Flyway.
+
+## Tests
+the following test are available under the load-fund-service module.
+
+* LoadFundApiControllerTest
+* LoadFundServiceTest
+
+LoadFundServiceTest uses predefined input and output data to verify functional behavior.
