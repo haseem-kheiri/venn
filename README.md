@@ -27,3 +27,4 @@ load-fund-service contains all domain logic, including:
 * REST controller
 
 All tests are located in the load-fund-service module.
+Database migration script are pushed using Flyway.

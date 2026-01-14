@@ -1,13 +1,16 @@
 package com.venn.lfs.impl.repository;
 
 import com.venn.lfs.dto.impl.LoadFundRequestDto;
+import com.venn.lfs.impl.autoconfig.LoadFundLimitsProperties;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 
 /** Repository for persisting load-fund ledger entries with enforced limits. */
+@Slf4j
 public class LoadFundRepository {
   private static final String LOAD_FUND_SQL =
       """
@@ -52,21 +55,25 @@ public class LoadFundRepository {
       FROM incoming i
       JOIN stats s ON true
       WHERE
-          s.daily_count < 3
-      AND s.daily_amount + i.amount <= 5000
-      AND s.weekly_amount + i.amount <= 20000
+          s.daily_count < ?
+      AND s.daily_amount + i.amount <= ?
+      AND s.weekly_amount + i.amount <= ?
       ON CONFLICT (customer_id, id) DO NOTHING;
       """;
 
   private final DataSource dataSource;
+  private final LoadFundLimitsProperties loadFundLimitsProperties;
 
   /**
    * Creates a repository using the given data source.
    *
    * @param dataSource the JDBC data source
+   * @param loadFundLimitsProperties properties defining load-fund limits
    */
-  public LoadFundRepository(DataSource dataSource) {
+  public LoadFundRepository(
+      DataSource dataSource, LoadFundLimitsProperties loadFundLimitsProperties) {
     this.dataSource = dataSource;
+    this.loadFundLimitsProperties = loadFundLimitsProperties;
   }
 
   /**
@@ -100,10 +107,14 @@ public class LoadFundRepository {
         ps.setObject(4, dto.getTime());
         ps.setObject(5, dto.getTime());
         ps.setObject(6, dto.getTime());
+        ps.setInt(7, loadFundLimitsProperties.getDailyCount());
+        ps.setBigDecimal(8, loadFundLimitsProperties.getDailyAmount());
+        ps.setBigDecimal(9, loadFundLimitsProperties.getWeeklyAmount());
 
         return ps.executeUpdate() == 1;
       }
     } catch (SQLException e) {
+      log.warn("Error loading funds", e);
       throw new LoadFundException(e);
     }
   }

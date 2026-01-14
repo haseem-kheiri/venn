@@ -9,6 +9,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>load-fund-service</artifactId>
+  <properties>
+    <coverage.instruction.minimum>0.84</coverage.instruction.minimum>
+    <coverage.branch.minimum>0.75</coverage.branch.minimum>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>com.venn</groupId>
@@ -18,6 +22,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

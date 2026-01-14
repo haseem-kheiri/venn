@@ -10,8 +10,13 @@ import lombok.Getter;
 @Getter
 public class LoadFundResponseDto {
 
+  @JsonProperty("id")
   private final String id;
+
+  @JsonProperty("customer_id")
   private final String customerId;
+
+  @JsonProperty("accepted")
   private final boolean accepted;
 
   /**

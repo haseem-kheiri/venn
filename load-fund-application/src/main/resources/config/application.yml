@@ -1,15 +1,21 @@
 server:
-  port: 9090
+  port: ${SERVER_PORT:9090}
+venn:
+  load-fund:
+    limits:
+      daily-count: ${VENN_LOAD_FUND_DAILY_COUNT:3}
+      daily-amount: ${VENN_LOAD_FUND_DAILY_AMOUNT:5000}
+      weekly-amount: ${VENN_LOAD_FUND_WEEKLY_AMOUNT:20000}
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydb
-    username: myuser
-    password: mypassword
-    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/mydb}
+    username: ${SPRING_DATASOURCE_USERNAME:myuser}
+    password: ${SPRING_DATASOURCE_PASSWORD:mypassword}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
     hikari:
-      pool-name: PostgresHikariPool
-      maximum-pool-size: 10
-      minimum-idle: 2
-      idle-timeout: 30000
-      max-lifetime: 600000
-      connection-timeout: 5000
+      pool-name: ${SPRING_DATASOURCE_HIKARI_POOL_NAME:PostgresHikariPool}
+      maximum-pool-size: ${SPRING_DATASOURCE_HIKARI_MAX_POOL_SIZE:10}
+      minimum-idle: ${SPRING_DATASOURCE_HIKARI_MIN_IDLE:2}
+      idle-timeout: ${SPRING_DATASOURCE_HIKARI_IDLE_TIMEOUT:30000}
+      max-lifetime: ${SPRING_DATASOURCE_HIKARI_MAX_LIFETIME:600000}
+      connection-timeout: ${SPRING_DATASOURCE_HIKARI_CONNECTION_TIMEOUT:5000}
